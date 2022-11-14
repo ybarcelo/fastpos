@@ -21,7 +21,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
-use App\Http\Controllers\CategoryController;
             
 
 Route::get('/', function () {return redirect('sign-in');})->middleware('guest');
@@ -42,23 +41,7 @@ Route::get('/reset-password/{token}', function ($token) {
 Route::post('sign-out', [SessionsController::class, 'destroy'])->middleware('auth')->name('logout');
 Route::get('profile', [ProfileController::class, 'create'])->middleware('auth')->name('profile');
 Route::post('user-profile', [ProfileController::class, 'update'])->middleware('auth');
-
-
 Route::group(['middleware' => 'auth'], function () {
-	
-/*Gestión de usuarios*/
-Route::get('user-management', function () {
-		return view('pages.laravel-examples.user-management');
-	})->name('user-management');
-/*Perfil de usuario*/
-	Route::get('user-profile', function () {
-		return view('pages.laravel-examples.user-profile');
-	})->name('user-profile');
-
-/**Gestión de categorías*/
-Route::resource('categories', CategoryController::class);
-
-
 	Route::get('billing', function () {
 		return view('pages.billing');
 	})->name('billing');
@@ -80,7 +63,10 @@ Route::resource('categories', CategoryController::class);
 	Route::get('static-sign-up', function () {
 		return view('pages.static-sign-up');
 	})->name('static-sign-up');
-	
-
-	
+	Route::get('user-management', function () {
+		return view('pages.laravel-examples.user-management');
+	})->name('user-management');
+	Route::get('user-profile', function () {
+		return view('pages.laravel-examples.user-profile');
+	})->name('user-profile');
 });
